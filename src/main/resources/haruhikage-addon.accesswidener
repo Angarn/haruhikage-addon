@@ -1,0 +1,10 @@
+accessWidener v2 named
+
+# for /palette command
+accessible field net/minecraft/world/chunk/PalettedContainer storage Lnet/minecraft/util/BitStorage;
+accessible field net/minecraft/world/chunk/PalettedContainer palette Lnet/minecraft/world/chunk/Palette;
+accessible field net/minecraft/world/chunk/PalettedContainer bits I
+accessible field net/minecraft/util/BitStorage bits I
+accessible field net/minecraft/util/BitStorage data [J
+accessible field net/minecraft/world/chunk/HashMapPalette values Lnet/minecraft/util/CrudeIncrementalIntIdentityHashMap;
+accessible field net/minecraft/world/chunk/LinearPalette size I

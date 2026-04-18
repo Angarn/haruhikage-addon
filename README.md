@@ -14,3 +14,4 @@ Download ornithe [here](https://ornithemc.net/download/)
 - `chunkTrack` command (I couln't get chunk debug to work so this is my workaround lmao)
 - `search` command to check clustering (copied `loadedChunks search`)
 - `disableTerrainPopulation`, useful when designing contraptions with unpopulated chunks
+- `palette` command to debug the subchunk palette (mostly copied from carpet112)
