@@ -35,7 +35,7 @@ public class SearchCommand extends CarpetAbstractCommand {
         world = source.getSourceWorld();
 
         if (args[0].equals("hash")) {
-            int hash = (int) getPrivateMethods(world, "n");
+            int hash = (int) getPrivateMethods(world);
             Messenger.m(source, "d Current hashSize: " + hash);
         } else {
             Messenger.m(source, "d Clustering");
@@ -64,10 +64,10 @@ public class SearchCommand extends CarpetAbstractCommand {
         }
     }
 
-    private Object getPrivateMethods(World world, String name) {
+    private Object getPrivateMethods(World world) {
         Long2ObjectOpenHashMap<WorldChunk> loadedChunks = (Long2ObjectOpenHashMap<WorldChunk>) ((ServerChunkCacheAccessor) world.getChunkSource()).getChunks();
         try {
-            Field f = loadedChunks.getClass().getDeclaredField(name);
+            Field f = loadedChunks.getClass().getDeclaredField("n");
             f.setAccessible(true);
             return f.get(loadedChunks);
         } catch (Exception e) {
