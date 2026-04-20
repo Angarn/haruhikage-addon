@@ -53,6 +53,13 @@ public class HaruhikageAddonSettings {
     public static boolean chunkTrackCommand = false;
 
     @Rule(
+        desc = "Enables the /palette command to debug the subchunk palette.",
+        categories = {fallingblock},
+        options = {"true", "false"}
+    )
+    public static boolean paletteCommand = false;
+
+    @Rule(
             desc = "Disables terrain population. Useful when testing and interacting with contraptions with unpopulated chunks",
             categories = {fallingblock},
             options = {"true", "false"}

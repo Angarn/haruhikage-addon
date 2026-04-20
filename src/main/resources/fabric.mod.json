@@ -3,9 +3,9 @@
 	"id": "haruhikage-addon",
 	"version": "${version}",
 	"name": "Haruhikage Ornithe Carpet Extension",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "An addon for the Ornithe Carpet project. Contains features mainly for singleplayer falling block development, mostly ported from carpetmod112",
 	"authors": [
-		"You!"
+		"Angarn"
 	],
 	"contact": {
 		"homepage": "https://github.com/zAngarn/haruhikage-addon",
@@ -20,6 +20,7 @@
 	"mixins": [
 		"haruhikage-addon.mixins.json"
 	],
+	"accessWidener": "haruhikage-addon.accesswidener",
 	"depends": {
 		"fabricloader": ">=0.13.3",
 		"minecraft": "1.12.2",
