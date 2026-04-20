@@ -34,8 +34,9 @@ public class SearchCommand extends CarpetAbstractCommand {
 
         world = source.getSourceWorld();
 
-        if(args.length<=1) {
-            Messenger.m(source, "r Not enough arguments!");
+        if (args[0].equals("hash")) {
+            int hash = (int) getPrivateMethods(world, "n");
+            Messenger.m(source, "d Current hashSize: " + hash);
         } else {
             Messenger.m(source, "d Clustering");
             try {
@@ -49,6 +50,7 @@ public class SearchCommand extends CarpetAbstractCommand {
     // (ChunkProviderServer) world.getChunkProvider().
     protected void search(CommandSource sender, int chunkX, int chunkZ) throws NoSuchFieldException, IllegalAccessException {
         Long2ObjectOpenHashMap<WorldChunk> loadedChunks = (Long2ObjectOpenHashMap<WorldChunk>) ((ServerChunkCacheAccessor) world.getChunkSource()).getChunks();
+        loadedChunks.trim();
         Object[] chunks = getValues(loadedChunks);
         int mask = getMask(loadedChunks);
         for (int i = 0; i < chunks.length; i++) {
@@ -60,6 +62,18 @@ public class SearchCommand extends CarpetAbstractCommand {
             sender.sendMessage(new LiteralText(formatChunk(chunk,i, mask)));
             break;
         }
+    }
+
+    private Object getPrivateMethods(World world, String name) {
+        Long2ObjectOpenHashMap<WorldChunk> loadedChunks = (Long2ObjectOpenHashMap<WorldChunk>) ((ServerChunkCacheAccessor) world.getChunkSource()).getChunks();
+        try {
+            Field f = loadedChunks.getClass().getDeclaredField(name);
+            f.setAccessible(true);
+            return f.get(loadedChunks);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public static int getMask(Long2ObjectOpenHashMap hashMap) throws NoSuchFieldException, IllegalAccessException {

@@ -3,9 +3,11 @@ package haruhikage.mixins;
 import carpet.CarpetServer;
 import carpet.utils.Messenger;
 import haruhikage.HaruhikageAddonSettings;
+import net.minecraft.world.World;
 import org.objectweb.asm.Opcodes;
 import net.minecraft.world.chunk.ChunkGenerator;
 import net.minecraft.world.chunk.WorldChunk;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -24,6 +26,20 @@ public abstract class WorldChunkMixin {
 
     @Shadow
     private boolean terrainPopulated;
+
+    @Shadow public abstract World getWorld();
+
+    @Shadow @Final public int chunkZ;
+
+    @Shadow @Final public int chunkX;
+
+    @Inject(method = "unload", at = @At(value = "HEAD"))
+    private void unloadChunkUnloadTimer(CallbackInfo ci) {
+        if(this.chunkX == -161 && this.chunkZ == -219) {
+            System.out.println("server up for " + getWorld().getServer().getTicks() + "gt");
+            System.out.println("gametime: " + getWorld().getTime() % 2147483647L + "gt");
+        }
+    }
 
     @Redirect(method = "populate(Lnet/minecraft/world/chunk/ChunkGenerator;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/chunk/ChunkGenerator;populateChunk(II)V"))
     private void populateChunk (ChunkGenerator generator, int x, int z) {
