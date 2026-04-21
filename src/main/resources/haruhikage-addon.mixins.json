@@ -1,22 +1,23 @@
 {
-	"required": true,
-	"minVersion": "0.8",
-	"package": "haruhikage.mixins",
-	"refmap": "haruhikage-addon.refmap.json",
-	"compatibilityLevel": "JAVA_8",
-	"mixins": [
-	],
-	"client": [
-		"InitMixin",
-		"BeaconBlockMixin",
-		"ServerChunkCacheMixin",
-		"WorldChunkMixin",
-		"ServerChunkCacheAccessor",
-		"MinecraftServerMixin"
-	],
-	"server": [
-    ],
-	"injectors": {
-		"defaultRequire": 1
+  "required": true,
+  "minVersion": "0.8",
+  "package": "haruhikage.mixins",
+  "refmap": "haruhikage-addon.refmap.json",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+  ],
+  "client": [
+    "BeaconBlockMixin",
+    "InitMixin",
+    "IntegratedServerMixin",
+    "MinecraftServerMixin",
+    "ServerChunkCacheAccessor",
+    "ServerChunkCacheMixin",
+    "WorldChunkMixin"
+  ],
+  "server": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
 	}
 }
