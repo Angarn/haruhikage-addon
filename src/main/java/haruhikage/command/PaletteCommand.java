@@ -14,6 +14,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.AbstractCommand;
 import net.minecraft.server.command.exception.CommandException;
 import net.minecraft.server.command.exception.IncorrectUsageException;
+import net.minecraft.server.command.exception.InvalidNumberException;
 import net.minecraft.server.command.source.CommandSource;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.BitStorage;
@@ -35,7 +36,7 @@ public class PaletteCommand extends CarpetAbstractCommand {
 
     @Override
     public String getUsage(CommandSource source) {
-        return "palette <bits | size | get | match | print | fill> <X> <Y> <Z> [normal | full] [4-8 | 13]";
+        return "palette <at | bits | size | get | match | print | fill> <X> <Y> <Z> [normal | full] [4-8 | 13]";
     }
 
     @Override
@@ -91,9 +92,9 @@ public class PaletteCommand extends CarpetAbstractCommand {
                         source.sendMessage(new LiteralText(s));
                     }
                     return;
-                case "get":
+                case "at":
                     if (args.length < 4) {
-                        throw new IncorrectUsageException("palette get <X> <Y> <Z> [normal | full]");
+                        throw new IncorrectUsageException("palette at <X> <Y> <Z> [normal | full]");
                     }
                     boolean isFull = args.length >= 5 && args[4].equals("full");
                     this.infoPalette(source, palettedContainer, pos, isFull, null);
@@ -115,6 +116,21 @@ public class PaletteCommand extends CarpetAbstractCommand {
                     } catch (Exception e) {
                         throw new IncorrectUsageException("palette match <X> <Y> <Z> block [meta]");
                     }
+                    return;
+                case "get":
+                    if (args.length < 5) {
+                        throw new IncorrectUsageException("palette get <X> <Y> <Z> [binary id]");
+                    }
+                    int id;
+                    try {
+                        id = Integer.parseInt(args[4], 2);
+                    } catch (NumberFormatException var2) {
+                        throw new InvalidNumberException("commands.generic.num.invalid", args[4]);
+                    }
+                    BlockState blockState = palette.valueFor(id);
+                    String bitString = String.format("%" + bits + "s", Integer.toBinaryString(id)).replace(' ', '0');
+                    String s = bitString + " " + String.valueOf(blockState).replace("minecraft:", "");
+                    source.sendMessage(new LiteralText(s));
                     return;
                 case "fill":
                     int type = 1;
@@ -270,10 +286,10 @@ public class PaletteCommand extends CarpetAbstractCommand {
     @Override
     public List<String> getSuggestions(MinecraftServer server, CommandSource sender, String[] args, @Nullable BlockPos targetPos) {
         if (args.length == 1) {
-            return AbstractCommand.suggestMatching(args, "bits", "size", "get", "match", "print", "fill");
+            return AbstractCommand.suggestMatching(args, "at", "bits", "size", "get", "match", "print", "fill");
         } else if (args.length >= 2 && args.length <= 4) {
             return AbstractCommand.suggestCoordinate(args, 1, targetPos);
-        } else if (args.length == 5 && (args[0].equals("get") || args[0].equals("fill"))) {
+        } else if (args.length == 5 && (args[0].equals("at") || args[0].equals("fill"))) {
             return AbstractCommand.suggestMatching(args, "full", "normal");
         } else if (args.length == 5 && args[0].equals("match")) {
             return AbstractCommand.suggestMatching(args, Block.REGISTRY.keySet());
