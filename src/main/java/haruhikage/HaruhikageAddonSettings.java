@@ -23,6 +23,13 @@ public class HaruhikageAddonSettings {
     public static boolean logCertainTickPhases = false;
 
     @Rule(
+            desc = "Logs whenever an autosave induced by pressing ESC or writing a book happens in console",
+            categories = {fallingblock},
+            options = {"true", "false"}
+    )
+    public static boolean logAutosaveTime = false;
+
+    @Rule(
             desc = "Unload Chunk X coordinate for the `logUnloadChunkPhase` logger",
             categories = {fallingblock},
             options = {"1", "2", "3"},

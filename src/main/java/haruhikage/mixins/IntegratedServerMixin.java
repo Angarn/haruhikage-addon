@@ -3,6 +3,7 @@ package haruhikage.mixins;
 import com.mojang.authlib.GameProfileRepository;
 import com.mojang.authlib.minecraft.MinecraftSessionService;
 import com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService;
+import haruhikage.HaruhikageAddonSettings;
 import net.minecraft.server.GameProfileCache;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.integrated.IntegratedServer;
@@ -24,6 +25,7 @@ public abstract class IntegratedServerMixin extends MinecraftServer {
 
     @Inject(method = "tick()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/integrated/IntegratedServer;saveWorlds(Z)V", shift = At.Shift.BEFORE))
     private void logEscGametime(CallbackInfo ci) {
+        if(!HaruhikageAddonSettings.logAutosaveTime) return;
         System.out.println("server up for " + getTicks() + "gt");
         System.out.println("gametime: " + worlds[0].getTime() % 2147483647L + "gt");
     }
