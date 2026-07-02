@@ -60,6 +60,13 @@ public class HaruhikageAddonSettings {
     public static boolean chunkTrackCommand = false;
 
     @Rule(
+        desc = "",
+        categories = {fallingblock},
+        options = {"true", "false"}
+    )
+    public static boolean loadedChunksCommand = false;
+
+    @Rule(
         desc = "Enables the /palette command to debug the subchunk palette.",
         categories = {fallingblock},
         options = {"true", "false"}

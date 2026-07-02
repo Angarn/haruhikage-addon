@@ -13,5 +13,9 @@ Download ornithe [here](https://ornithemc.net/download/)
 - Chunk population logging
 - `chunkTrack` command (I couln't get chunk debug to work so this is my workaround lmao)
 - `search` command to check clustering (copied `loadedChunks search`)
+- `loadedChunks` command for inspecting the chunk hashmap
+  - **NOTE**: Ornithe patches the fastutils version used by the game to `it.unimi.dsi:fastutil:8.5.9`,
+    which prevents the chunk hashmap from downsizing below 16384.
+    Change `patches/it.unimi.dsi.fastutil.json` to `7.1.0` for the vanilla version.
 - `disableTerrainPopulation`, useful when designing contraptions with unpopulated chunks
 - `palette` command to debug the subchunk palette (mostly copied from carpet112)
