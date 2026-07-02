@@ -3,6 +3,7 @@ package haruhikage;
 import carpet.CarpetExtension;
 import carpet.CarpetServer;
 import haruhikage.command.ChunkTrackCommand;
+import haruhikage.command.ClusterCommand;
 import haruhikage.command.PaletteCommand;
 import haruhikage.command.SearchCommand;
 import haruhikage.utils.HaruhikageAddonTranslations;
@@ -32,6 +33,7 @@ public class HaruhikageAddonServer implements CarpetExtension {
         // register commands here
         registry.register(new SearchCommand());
         registry.register(new ChunkTrackCommand());
+        registry.register(new ClusterCommand());
         registry.register(new PaletteCommand());
     }
 

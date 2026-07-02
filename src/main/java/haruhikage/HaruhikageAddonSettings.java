@@ -67,6 +67,13 @@ public class HaruhikageAddonSettings {
     public static boolean paletteCommand = false;
 
     @Rule(
+        desc = "Enables the /cluster command to compute falling block swap clusters.",
+        categories = { fallingblock },
+        options = {"true", "false"}
+    )
+    public static boolean clusterCommand = false;
+
+     @Rule(
             desc = "Disables terrain population. Useful when testing and interacting with contraptions with unpopulated chunks",
             categories = {fallingblock},
             options = {"true", "false"}
